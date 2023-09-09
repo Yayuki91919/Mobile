@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+include_once __DIR__ . '/../controller/registerController.php';
+$reg_controller = new RegisterController();
+
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $admin=$reg_controller->getUser($email);
+}else{
+    echo "<script>location.href='login.php'</script>";
+}
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +24,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>MSST Admin</title>
+    <title>Corona Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
@@ -16,15 +35,10 @@
     <link rel="stylesheet" href="../assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="../assets/vendors/owl-carousel-2/owl.themFe.default.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../uploads/logo/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../uploads/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../uploads/logo/favicon-16x16.png">
-    <link rel="manifest" href="../uploads/logo/site.webmanifest">
-    <!-- endfavicon -->
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
     <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
@@ -44,11 +58,11 @@
                     <div class="profile-desc">
                         <div class="profile-pic">
                             <div class="count-indicator">
-                                <img class="img-xs rounded-circle " src="../assets/images/faces/face3.jpg" alt="">
+                                <img class="img-xs rounded-circle " src="../uploads/<?php echo $admin['image'] ?>" alt="">
                                 <span class="count bg-success"></span>
                             </div>
                             <div class="profile-name">
-                                <h5 class="mb-0 font-weight-normal">Admin</h5>
+                                <h5 class="mb-0 font-weight-normal"><?php  echo $admin['name']; ?></h5>
                                 <span>Gold Member</span>
                             </div>
                         </div>
@@ -69,21 +83,21 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <span class="menu-icon">
-                <i class="mdi mdi-account-multiple-plus"></i>
-              </span>
-              <span class="menu-title">Accounts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item menu-items"> <a class="nav-link" href="register.php">Register</a></li>
-                <li class="nav-item menu-items"> <a class="nav-link" href="app_user.php">Users</a></li>
-                <li class="nav-item menu-items"> <a class="nav-link" href="admin.php">Admins</a></li>
-              </ul>
-            </div>
-          </li>
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-account-multiple-plus"></i>
+                        </span>
+                        <span class="menu-title">Accounts</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item menu-items"> <a class="nav-link" href="register.php">Register</a></li>
+                            <li class="nav-item menu-items"> <a class="nav-link" href="app_user.php">Users</a></li>
+                            <li class="nav-item menu-items"> <a class="nav-link" href="admin.php">Admins</a></li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="app_brands.php">
                         <span class="menu-icon">
@@ -109,7 +123,15 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="app_tools.php">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document"></i>
+                        </span>
+                        <span class="menu-title">Tools Category</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="app_tool_down.php">
                         <span class="menu-icon">
                             <i class="mdi mdi-file-document"></i>
                         </span>
@@ -117,7 +139,15 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="app_box.php">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document"></i>
+                        </span>
+                        <span class="menu-title">Box Category</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="app_box_down.php">
                         <span class="menu-icon">
                             <i class="mdi mdi-file-document"></i>
                         </span>
@@ -133,13 +163,22 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="app_tutorial.php">
+                    <a class="nav-link" href="app_tutorials.php">
                         <span class="menu-icon">
-                            <i class="mdi mdi-folder-upload"></i>
+                            <i class="ri-video-line"></i>
                         </span>
                         <span class="menu-title">Tutorials</span>
                     </a>
                 </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="app_service.php">
+                        <span class="menu-icon">
+                            <i class="ri-questionnaire-line"></i>
+                        </span>
+                        <span class="menu-title">Servie FAQ</span>
+                    </a>
+                </li>
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="app_contact.php">
                         <span class="menu-icon">
@@ -149,7 +188,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="app_team.php">
                         <span class="menu-icon">
                             <i class="mdi mdi mdi-human-male-female"></i>
                         </span>
@@ -270,22 +309,22 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                                 <div class="navbar-profile">
-                                    <img class="img-xs rounded-circle" src="../assets/images/faces/face3.jpg" alt="">
-                                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Admin</p>
+                                    <img class="img-xs rounded-circle" src="../uploads/<?php echo $admin['image'] ?>" alt="">
+                                    <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $admin['name'] ?></p>
                                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                                 <!--                            <h6 class="p-3 mb-0">Profile</h6>-->
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
+                                <a class="dropdown-item preview-item" href="logout.php">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-dark rounded-circle">
                                             <i class="mdi mdi-logout text-danger"></i>
                                         </div>
                                     </div>
-                                    <div class="preview-item-content">
-                                        <p class="preview-subject mb-1">Log out</p>
+                                   <div class="preview-item-content">
+                                   <p class="preview-subject mb-1">Log out</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>

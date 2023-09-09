@@ -2,23 +2,29 @@
 session_start();
 include_once __DIR__ . '/../controller/brandsController.php';
 include_once __DIR__ . '/../controller/accountsController.php';
-include_once __DIR__ . '/../controller/packageController.php';
 include_once __DIR__ . '/../controller/registerController.php';
 
-$reg_controller=new RegisterController();
-$acc_controller=new AccountsController();
-if(isset($_SESSION['email'])){
-    $email=$_SESSION['email'];
+$brandsController = new brandsController();
+$getAllBrands = $brandsController->getAllBrands();
+
+$reg_controller = new RegisterController();
+
+$acc_controller = new AccountsController();
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
 }
-if(isset($_SESSION['user_id'])){
-    $user_id=$_SESSION['user_id'];
-    $acc_id=$acc_controller->getAccountId($user_id);
-    $_SESSION['acc_id']=$acc_id;
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $acc_id = $acc_controller->getAccountId($user_id);
+    $_SESSION['acc_id'] = $acc_id;
 }
+
 $brandsController = new brandsController();
 $getAllBrands = $brandsController->getAllBrands();
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,18 +43,12 @@ $getAllBrands = $brandsController->getAllBrands();
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Poppins:ital,wght@1,500;1,800&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/mystyle.css">
-     <!-- favicon -->
-     <link rel="apple-touch-icon" sizes="180x180" href="uploads/logo/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="uploads/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="uploads/logo/favicon-16x16.png">
-    <link rel="manifest" href="uploads/logo/site.webmanifest">
-    <!-- endfavicon -->
 </head>
 
 <body class="bg-white container-fluid g-0 overflow-x-hidden">
     <!--nav bar-->
-    <section class="container-fluid bg-dark g-0">
-        <nav class="container bg-dark navbar navbar-expand-lg">
+    <section class="container-fluid g-0" style="background-color: #262626 ;">
+        <nav class="container navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand text-white me-auto" href="index.php">
                     M&nbsp;S&nbsp;S&nbsp;T&nbsp;
@@ -70,11 +70,11 @@ $getAllBrands = $brandsController->getAllBrands();
                             </a>
                             <ul class="dropdown-menu  animate__animated animate__flipInY">
 
-                            <?php
-                            foreach($getAllBrands as $getBrand){
-                                echo '<li class="animate__animated animate__flipInY wow" data-wow-delay="0.3s"><a class="dropdown-item" href="models.php?id='.$getBrand['id'].'">'.$getBrand['name'].'</a></li>';
-                            }
-                            ?>
+                                <?php
+                                foreach ($getAllBrands as $getBrand) {
+                                    echo '<li class="animate__animated animate__flipInY wow" data-wow-delay="0.3s"><a class="dropdown-item custom-dropdown-item" href="models.php?id=' . $getBrand['id'] . '">' . $getBrand['name'] . '</a></li>';
+                                }
+                                ?>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -87,20 +87,36 @@ $getAllBrands = $brandsController->getAllBrands();
                             <a class="nav-link" href="box.php">Box</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="#about">About</a>
                         </li>
                     </ul>
-                    <?php if(isset($acc_id)){
-                        $user=$reg_controller->getUser($email);
-                    ?> 
-                        <a href=""><span class="me-2 btn-sm animate__animated animate__bounceInRight wow " data-wow-delay="0.2s" type="submit"><?php echo strtoupper($user['name']);?>
-                    </span></a>
-                        <a href="logout.php"><button class="btn  btn-sm animate__animated animate__bounceInRight wow register_btn" data-wow-delay="0.5s" type="submit">Logout</button></a>
-                    <?php }else{ ?>
-                    <a href="register.php"><button class="btn me-2 btn-sm animate__animated animate__bounceInRight wow login_btn" data-wow-delay="0.2s" type="submit">Register
-                    </button></a>
-                    <a href="signin.php"><button class="btn  btn-sm animate__animated animate__bounceInRight wow register_btn" data-wow-delay="0.5s" type="submit">Login</button></a>
-                     <?php }?>
+                    <?php if (isset($acc_id)) {
+                        $user = $reg_controller->getUser($email);
+                    ?>
+                        <div class="team_img text-center px-2">
+                            <img src="uploads/<?php echo $user['image'] ?>" alt="" class="img-fluid rounded-circle border bg-white" style="height: 40px; width: 40px;">
+                        </div>
+
+                        <!-- <a href=""><span class="me-2 btn-sm" data-wow-delay="0.2s" type="submit"><?php echo ucwords($user['name']); ?>
+                            </span></a> -->
+
+                        <div class="dropdown ">
+                            <span class="text-white dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <?php echo ucwords($user['name']); ?>
+                            </span>
+                            <div class="dropdown-menu w-20">
+                                <a href="logout.php" class="dropdown-item bg-white border-0 mt-2 text-dark ">Logout</a>
+                            </div>
+                        </div>
+
+                        <!-- <a href="logout.php"><button class="btn btn-sm btn-danger" type="submit">Logout</button></a> -->
+
+
+                    <?php } else { ?>
+                        <a href="register.php"><button class="btn me-2 btn-sm animate__animated animate__bounceInRight wow login_btn" data-wow-delay="0.2s" type="submit">Register
+                            </button></a>
+                        <a href="signin.php"><button class="btn  btn-sm animate__animated animate__bounceInRight wow register_btn" data-wow-delay="0.5s" type="submit">Login</button></a>
+                    <?php } ?>
                 </div>
             </div>
         </nav>

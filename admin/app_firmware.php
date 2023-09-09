@@ -37,11 +37,11 @@ $firmwares = $firmware_controller->getAllFirmware();
 
                             echo '<tr>';
                             echo '<td id='.$firmware['id'].'>
-                                    <a class="btn btn-outline-primary mx-2" href="firmware_edit.php?id='.$firmware['id'].'">
+                                    <a class="btn btn-sm btn-outline-primary mx-2 text-center" href="firmware_edit.php?id='.$firmware['id'].'">
                                         <i class="ri-pencil-line"></i>
                                     </a>
 
-                                    <a class="btn btn-outline-danger delete_btn_ajax" href="">
+                                    <a class="btn btn-sm btn-outline-danger delete_btn_ajax" href="">
                                         <i class="ri-delete-bin-2-line"></i>
                                     </a>
                                 </td>';

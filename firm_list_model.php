@@ -1,5 +1,4 @@
 <?php
-
 include_once __DIR__ . '/layouts/header.php';
 include_once __DIR__ . '/controller/firmwaresController.php';
 // include_once __DIR__ . '/controller/firmsController.php';
@@ -37,7 +36,7 @@ $models = $models_controller->getAllModels();
         <div class="path col-12 ">
             <ul>
                 <li>
-                    <a><i class="ri-folder-2-line">&nbsp;</i>firmwares</a>
+                    <a href=""><i class="ri-folder-2-line">&nbsp;</i>firmwares</a>
                 </li>
                 <li>
                     <a href="models.php?id=<?php echo $brand_id ?>"><i class="ri-folder-2-line">&nbsp;</i>
@@ -86,7 +85,7 @@ $models = $models_controller->getAllModels();
                 </thead>
                 <tbody>
                     <?php
-                    
+
                     if (empty($fim_list_by_model)) {
                         echo '<tr>';
                         echo '<td colspan="7">No firmware available!</td>';

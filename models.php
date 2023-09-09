@@ -1,5 +1,4 @@
 <?php
-
 include_once __DIR__ . '/layouts/header.php';
 include_once __DIR__ . '/controller/modelsController.php';
 include_once __DIR__ . '/controller/brandsController.php';
@@ -27,7 +26,7 @@ $brands = $brands_controller->getAllBrands();
         <div class="path col-12">
             <ul>
                 <li>
-                    <a><i class="ri-folder-2-line">&nbsp;</i>firmwares</a>
+                    <a href=""><i class="ri-folder-2-line">&nbsp;</i>firmwares</a>
                 </li>
                 <li>
                     <a href="models.php?id=<?php echo $brand_id ?>"><i class="ri-folder-2-line">&nbsp;</i>

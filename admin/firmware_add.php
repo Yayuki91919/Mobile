@@ -62,9 +62,7 @@ if (isset($_POST['add'])) {
 
         });
 
-        $('#summernote').summernote({
-            placeholder: 'Your text is here....',
-        });
+        
 
     });
 

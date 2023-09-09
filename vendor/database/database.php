@@ -3,7 +3,7 @@
 class database
 {
     private static $hostname = 'localhost';
-    private static $db_name = 'msst';
+    private static $db_name = 'dd';
     private static $username = 'root';
     private static $password = '';
     private static $connection;
@@ -12,7 +12,7 @@ class database
     {
         if (self::$connection == null) {
             try {
-                self::$connection = new PDO("mysql:host=" . self::$hostname . ";dbname=" . self::$db_name, self::$username, self::$password);
+                self::$connection = new PDO("mysql:host=" . self::$hostname . ";port=3308;dbname=" . self::$db_name, self::$username, self::$password);
             } catch (Exception $e) {
                 die($e->getMessage());
             }

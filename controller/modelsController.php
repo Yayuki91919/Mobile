@@ -53,7 +53,7 @@ class modelsController extends models
         return $this->showModelInfos($id);
     }
 
-    public function dir($id){
-        return $this->dirInfo($id);
-    }
+    // public function dir($id){
+    //     return $this->dirInfo($id);
+    // }
 }
