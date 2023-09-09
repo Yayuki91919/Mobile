@@ -8,7 +8,7 @@ if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $admin=$reg_controller->getUser($email);
 }else{
-    echo "<script>location.href='login.php'</script>";
+   // echo "<script>location.href='login.php'</script>";
 }
 
 
